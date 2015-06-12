@@ -17,7 +17,7 @@ As the data are available on a yearly basis it was making sence to display a lin
 For an individual year, the pie chart on the top show percentage in a nice way so the reader can immediatly see the ratio of tax vs. earnings.
 When the user mouve over a dot of the line graph, the pie chart display the corresponding ratio of the selected year.  
 The choice has been made to **NOT** show the y axis to avoid an overload of information on the screen.  The user interested by a specific value of the line graph can get it when a cicrle is selected.
-User can select a country by selecting an item in a combo box where an event trigger a callback to the server to retreive the needed data and refresh the charts.
+User can choose a country by selecting an item in the combo box where a callback event is triggered to the server to retreive the needed data and refresh the charts.
 The charts are using the same base color (`hex : #403075`), a ligher and darker version of this color is used to show respectively the earnings and taxes.
 ## Feedback
 For collecting feedback, a dedicated [survey](https://www.surveymonkey.com/s/38DTMPD) has been conducted.
@@ -29,6 +29,7 @@ The following questions where asked :
 * Is there something you don’t understand in the graphic?
 * How would you rate the quality of the visualization ? from very good to very bad
 * Do you have any other comments, questions, or concerns?
+* In what country do you currently reside?
 
 The survey (conduted for a week between the 12th of June till the 19th of June)has been posted on various channel (udacity forum, reddit, twitter) in order to get a maximum feedback.
 Overall, xxx persones reply and share a ...  TODO
