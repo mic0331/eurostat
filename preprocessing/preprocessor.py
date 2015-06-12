@@ -36,7 +36,9 @@ def classify_per_countries(raw_data):
     return data
 
 def inject_data_mongo(data, collection):
+    # DEV
     #client = MongoClient('mongodb://localhost:27017')
+    # PROD
     client = MongoClient('mongodb://mic0331:eurostat@ds047672.mongolab.com:47672/eurostat')
     db = client.eurostat
     db[collection].drop()
@@ -113,7 +115,7 @@ if __name__ == "__main__":
     print("Number of lines in the file : {0}".format(num_lines))
     # stage 1 :: parse the file
     data = parse_file(datafile)
-    # stage 2 :: classify the raw data by country
+    # (optional) stage 2 :: classify the raw data by country
 #    data = classify_per_countries(data)
     # stage 3 :: put all the yearly data in it's own sub-feature
     data = group_years(data, y_from=2000, y_to=2014)
