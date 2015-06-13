@@ -2,9 +2,9 @@
     var Ploter = {
         init: function() {
             // Production
-            //this.DATAURL = 'https://radiant-basin-3159.herokuapp.com/api/v1/eurostat/basic/country/';
+            this.DATAURL = 'https://radiant-basin-3159.herokuapp.com/api/v1/eurostat/basic/country/';
             // Development
-            this.DATAURL = 'http://localhost:3030/api/v1/eurostat/basic/country/';
+            //this.DATAURL = 'http://localhost:3030/api/v1/eurostat/basic/country/';
             this.DURATION = 1500;
             this.DELAY    = 500;
 
@@ -34,7 +34,7 @@
         drawPieChart: function( elementId, date ) {
 
             year = date.getFullYear()
-            document.getElementById("title").innerHTML = "Eurning Structure for " + year;
+            document.getElementById("title").innerHTML = "Earning Structure for " + year;
             var data = this.getPieDataForYear(year)
 
             var containerEl = document.getElementById( elementId ),        
@@ -452,9 +452,9 @@
                         self.data.pieChart.push({
                             'color'           : ((estruct.code == 'NET') ? 'blue' : 'red'),
                             'description'     : ((estruct.code == 'NET') ?
-                                'A compulsory contribution to state revenue, levied by the government on workers\' income and business profits.'
+                                'Tax rate - A compulsory contribution to state revenue, levied by the government on workers\' income.'
                                 :
-                                'Gross income minus taxes, allowances, and deductions. Value used to determine how much income tax is owed.'),
+                                'Earnings - Gross income minus taxes, allowances, and deductions. Value used to determine how much income tax is owed.'),
                             'title'           : estruct.description,
                             'value'           : d.measure[idx].data,
                             'year'            : d.measure[idx].year
@@ -468,7 +468,7 @@
         render: function(jsondata, country) {
             var self = this;
 
-            document.getElementById("pie-title").innerHTML = country + " Eurnings (Single person without children)";
+            document.getElementById("pie-title").innerHTML = country + " Earnings (Single person without children)";
             document.getElementById("line-title").innerHTML = country + " Annual Earnings";
 
             // parse the json data coming from the middleware
