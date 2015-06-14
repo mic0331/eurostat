@@ -2,7 +2,7 @@ def get_mapping():
     mapping_list = [
         {
             "feature": "estruct",
-            "description": "Eurning structure",
+            "description": "earning structure",
             "codes": [
                 {
                     "code":"TOTAL",
@@ -26,13 +26,13 @@ def get_mapping():
                 },
                 {
                     "code":"NET",
-                    "label":"Net eurning"
+                    "label":"Net earning"
                 }
             ]
         },
         {
             "feature":"ecase",
-            "description": "Eurning case",
+            "description": "earning case",
             "codes": [
                 {
                     "code":"TOTAL",

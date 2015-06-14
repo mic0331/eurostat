@@ -34,7 +34,7 @@
         drawPieChart: function( elementId, date ) {
 
             year = date.getFullYear()
-            document.getElementById("title").innerHTML = "Earning Structure for " + year;
+            document.getElementById("title").innerHTML = year;
             var data = this.getPieDataForYear(year)
 
             var containerEl = document.getElementById( elementId ),        
@@ -416,7 +416,7 @@
                   .attr( 'x', detailWidth / 2 )
                   .attr( 'y', detailHeight / 4 * 3 )
                   .attr( 'text-anchor', 'middle' )
-                  .text( data.value );
+                  .text( data.value + ' EUR' );
             }
 
             function tween( b, callback ) {
@@ -451,7 +451,7 @@
 
                         self.data.pieChart.push({
                             'color'           : ((estruct.code == 'NET') ? 'blue' : 'red'),
-                            'description'     : ((estruct.code == 'NET') ?
+                            'description'     : ((estruct.code == 'TAX') ?
                                 'Tax rate - A compulsory contribution to state revenue, levied by the government on workers\' income.'
                                 :
                                 'Earnings - Gross income minus taxes, allowances, and deductions. Value used to determine how much income tax is owed.'),
@@ -468,8 +468,8 @@
         render: function(jsondata, country) {
             var self = this;
 
-            document.getElementById("pie-title").innerHTML = country + " Earnings (Single person without children)";
-            document.getElementById("line-title").innerHTML = country + " Annual Earnings";
+            document.getElementById("pie-title").innerHTML = country + " Average Earnings (Single person without children)";
+            document.getElementById("line-title").innerHTML = country + " Annual Average Earnings";
 
             // parse the json data coming from the middleware
             this.parseData(jsondata);

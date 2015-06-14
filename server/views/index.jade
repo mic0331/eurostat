@@ -5,7 +5,7 @@ block main-content
         ul
             li.chart
                 h3#pie-title.chart--subHeadline
-                    | Belgium Earning
+                    | Belgium Average Earning
                 h2#title.chart--headline
                     | Eurning Structure for 
                 #pieChart
@@ -64,9 +64,14 @@ block main-content
 
             li.chart
                 h3#line-title.chart--subHeadline
-                    | Belgium Annual Earning
+                    | Belgium Annual Average Earning
                 h2.chart--headline
-                    | Taxes / Net Eurning Evolution
+                    span.taxTitle
+                        | Taxes 
+                    | / 
+                    span.netTitle
+                        | Net 
+                    | Eurning Evolution
                 #lineChart
                     svg#lineChartSVG.lineChart--svg
                         defs

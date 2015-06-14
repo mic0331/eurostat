@@ -37,9 +37,9 @@ def classify_per_countries(raw_data):
 
 def inject_data_mongo(data, collection):
     # DEV
-    client = MongoClient('mongodb://localhost:27017')
+    #client = MongoClient('mongodb://localhost:27017')
     # PROD
-    #client = MongoClient('mongodb://mic0331:eurostat@ds047672.mongolab.com:47672/eurostat')
+    client = MongoClient('mongodb://mic0331:eurostat@ds047672.mongolab.com:47672/eurostat')
     db = client.eurostat
     db[collection].drop()
     db[collection].insert(data)

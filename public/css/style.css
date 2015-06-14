@@ -81,19 +81,19 @@ body ul, body li {
 
 .lineChart--areaLine--NET {
   fill: none;
-  stroke: #887CAF;
+  stroke: #43857C;
   stroke-width: 3;
 }
 
 .lineChart--areaLine--TAX {
-    stroke: #615192;
+    stroke: #804115;
     fill: none;
     stroke-width: 3;
 }
 
 .lineChart--bubble--label--NET {
   fill: none;
-  stroke: #887CAF;
+  stroke: #43857C;
   font-size: 12.6px;
   font-style: italic;
   font-weight: 100;
@@ -101,7 +101,7 @@ body ul, body li {
 
 .lineChart--bubble--label--TAX {
   fill: none;
-  stroke: #615192;
+  stroke: #804115;
   font-size: 12.6px;
   font-style: italic;
   font-weight: 100;
@@ -110,18 +110,18 @@ body ul, body li {
 .lineChart--bubble--value {
   fill: #fff;
   stroke: #fff;
-  font-size: 21px;
+  font-size: 14px;
   font-weight: 100;
 }
 
 .lineChart--circle--NET {
-  fill: #887CAF;
+  fill: #43857C;
   stroke: #fff;
   stroke-width: 3;
 }
 
 .lineChart--circle--TAX {
-  fill: #615192;
+  fill: #804115;
   stroke: #fff;
   stroke-width: 3;
 }
@@ -133,26 +133,26 @@ body ul, body li {
 
 .lineChart--circle--TAX__highlighted {
   fill: #fff;
-  stroke: #615192;
+  stroke: #804115;
 }
 
 .lineChart--gradientBackgroundArea--NET--top {
-  stop-color: #887CAF;
+  stop-color: #43857C;
   stop-opacity: 0.1;
 }
 
 .lineChart--gradientBackgroundArea--NET--bottom {
-  stop-color: #887CAF;
+  stop-color: #43857C;
   stop-opacity: 0.6;
 }
 
 .lineChart--gradientBackgroundArea--TAX--top {
-  stop-color: #615192;
+  stop-color: #804115;
   stop-opacity: 0.1;
 }
 
 .lineChart--gradientBackgroundArea--TAX--bottom {
-  stop-color: #615192;
+  stop-color: #804115;
   stop-opacity: 0.6;
 }
 
@@ -216,11 +216,11 @@ body ul, body li {
 }
 
 .pieChart__blue {
-  fill: #887CAF;
+  fill: #43857C;
 }
 
 .pieChart__red {
-  fill: #615192;
+  fill: #804115;
 }
 
 /**
@@ -231,8 +231,13 @@ body ul, body li {
 }
 
 
+.taxTitle {
+  color: #804115;
+}
 
-
+.netTitle {
+  color: #43857C;
+}
 
 
 
