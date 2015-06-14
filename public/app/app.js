@@ -452,9 +452,9 @@
                         self.data.pieChart.push({
                             'color'           : ((estruct.code == 'NET') ? 'blue' : 'red'),
                             'description'     : ((estruct.code == 'TAX') ?
-                                'Tax rate - A compulsory contribution to state revenue, levied by the government on workers\' income.'
+                                'TAXES (avg.) - A compulsory contribution to state revenue, levied by the government on workers\' income.'
                                 :
-                                'Earnings - Gross income minus taxes, allowances, and deductions. Value used to determine how much income tax is owed.'),
+                                'NET INCOME (avg.) - Gross income minus taxes, allowances, and deductions.  This is what is take home pay.'),
                             'title'           : estruct.description,
                             'value'           : d.measure[idx].data,
                             'year'            : d.measure[idx].year
