@@ -1,5 +1,6 @@
 (function() {
     var Ploter = {
+        // Initialize the constants and bind events.
         init: function() {
             // Production
             this.DATAURL = 'https://radiant-basin-3159.herokuapp.com/api/v1/eurostat/basic/country/';
@@ -13,6 +14,7 @@
             this.bindEvents();            
         },
 
+        // manipulate the data for the pie chart, calculate percentages
         getPieDataForYear: function( year ) {
             var pieData = [];
             var total = 0.;
@@ -31,6 +33,7 @@
             return pieData;
         },
 
+        // build the donuts chart
         drawPieChart: function( elementId, date ) {
 
             year = date.getFullYear()
@@ -197,6 +200,7 @@
             }
         },
         
+        // build the multi-line chart
         drawLineChart: function( elementId, data ) {
             var self = this;
             // draw one line per code
@@ -230,12 +234,18 @@
 
                 xAxis      = d3.svg.axis().scale( x )
                                           .ticks ( 8 )
-                                          .tickSize( -height ),
+                                          .tickSize( -height ),                
                 xAxisTicks = d3.svg.axis().scale( x )
                                           .ticks( 16 )
                                           .tickSize( -height )
                                           .tickFormat( '' ),
                 y          = d3.scale.linear().range( [ height, 0 ] ),
+                // ** y axxis added after feedback
+                yAxis      = d3.svg.axis().scale( y )
+                                          .orient( 'left' )
+                                          .ticks ( 8 ),
+                                          //.tickSize( -height ),
+
                 yAxisTicks = d3.svg.axis().scale( y )
                                           .ticks( 12 )
                                           .tickSize( width )
@@ -279,6 +289,12 @@
                 .attr( 'class', 'lineChart--xAxis' )
                 .attr( 'transform', 'translate(' + detailWidth / 2 + ',' + ( height + 7 ) + ')' )
                 .call( xAxis );
+
+            // ** y-axis added after feedback
+            svg.append( 'g' )
+                .attr( 'class', 'lineChart--xAxis' )
+                .attr( 'transform', 'translate(' + 55 + ',' + 0 + ')' )
+                .call( yAxis );
 
             svg.append( 'g' )
                 .attr( 'class', 'lineChart--yAxisTicks' )
@@ -430,6 +446,15 @@
             }
         },
 
+        // build the normilized chart : NA
+        drawNormalizedStackedBarChart: function( elementId, data) {
+            var self = this;
+
+            // TODO: draw the chart !!!!
+
+        },
+
+        // parse the data from the API
         parseData: function(json) {
             var self = this;
             // reset the data
@@ -465,6 +490,7 @@
             return self.data;
         },        
 
+        // render the charts on the page
         render: function(jsondata, country) {
             var self = this;
 
@@ -481,23 +507,31 @@
             this.drawPieChart('pieChart', date);                
         },
 
+        // bind events (json loading, combo selection ...)
         bindEvents: function() {
             var self = this;
             var dropdown = d3.select("#countrySelector")
-            var change = function() {
-                var source = dropdown.node().options[dropdown.node().selectedIndex].value;
-                var label = dropdown.node().options[dropdown.node().selectedIndex].label;
-                d3.json(self.DATAURL + source)
-                    .on("load", function(data) {self.render(data, label);})
-                    .on("error", function(error) { console.log("failure!", error); })
-                    .get();
-               
-            }
-            dropdown.on("change", change);
-            change()
+            
+            if (dropdown.empty() == false) {
+                var change = function() {
+                    var source = dropdown.node().options[dropdown.node().selectedIndex].value;
+                    var label = dropdown.node().options[dropdown.node().selectedIndex].label;
+                    d3.json(self.DATAURL + source)
+                        .on("load", function(data) {self.render(data, label);})
+                        .on("error", function(error) { console.log("failure!", error); })
+                        .get();
+                   
+                }
+                dropdown.on("change", change);
+                change()
+            } else {
+                // TODO: work in progress, implement normilizedChart as per feedback
+                this.drawNormalizedStackedBarChart('normilizedChart', this.data.drawNormalizedStackedBarChart);
+            }            
         }
     }
 
+    // this is where the magic is initiated !
     Ploter.init();
 
 })();

@@ -15,6 +15,9 @@ module.exports = function(app) {
         next(error);
     });
 
+    app.get('/normilized', function(req, res) {
+        res.render('normalized_stacked_bar_chart', {});
+    });
 
     app.get('*', function(req, res) {
         res.render('index', {

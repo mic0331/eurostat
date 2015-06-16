@@ -1,6 +1,6 @@
 extends ../includes/layout
 
-block main-content
+block main-content    
     .charts--container
         ul
             li.chart
@@ -71,7 +71,7 @@ block main-content
                     | / 
                     span.netTitle
                         | Net 
-                    | Eurning Evolution
+                    | Earnings History
                 #lineChart
                     svg#lineChartSVG.lineChart--svg
                         defs
@@ -81,4 +81,4 @@ block main-content
                         defs
                             lineargradient#lineChart--gradientBackgroundArea--TAX(x1='0', x2='0', y1='0', y2='1')
                                 stop.lineChart--gradientBackgroundArea--TAX--top(offset='0%')
-                                stop.lineChart--gradientBackgroundArea--TAX--bottom(offset='100%')    
+                                stop.lineChart--gradientBackgroundArea--TAX--bottom(offset='100%')        
