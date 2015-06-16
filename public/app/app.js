@@ -3,9 +3,9 @@
         // Initialize the constants and bind events.
         init: function() {
             // Production
-            this.DATAURL = 'https://radiant-basin-3159.herokuapp.com/api/v1/eurostat/basic/country/';
+            //this.DATAURL = 'https://radiant-basin-3159.herokuapp.com/api/v1/eurostat/basic/country/';
             // Development
-            //this.DATAURL = 'http://localhost:3030/api/v1/eurostat/basic/country/';
+            this.DATAURL = 'http://localhost:3030/api/v1/eurostat/basic/country/';
             this.DURATION = 1500;
             this.DELAY    = 500;
 
