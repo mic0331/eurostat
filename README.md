@@ -68,8 +68,8 @@ The project source code folder contain two main area of interest.
 
 1. **Preprocessing**
 
-source file :
-* [preprocessor](https://github.com/mic0331/eurostat/blob/master/preprocessing/preprocessor.py)
+Source file :
+* [preprocessor.py](https://github.com/mic0331/eurostat/blob/master/preprocessing/preprocessor.py)
 * [API](https://github.com/mic0331/eurostat/tree/master/server/api/eurostat)
 * [index.jade](https://github.com/mic0331/eurostat/blob/master/server/views/index.jade)
 * [app.js](https://github.com/mic0331/eurostat/blob/master/public/app/app.js)
