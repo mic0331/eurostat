@@ -105,7 +105,7 @@ To run the project, follow these steps :
 
     `>>>  nodemon server`
     or
-    `>>> node server
+    `>>> node server`
     (this will start the webapp)
 
 5. Navigate to `http://localhost:3030/`
