@@ -12,6 +12,8 @@ In a lot of the European countries tax rates are high but the provision of benef
 ## Initial Design Decision
 The data (coming from [Eurostat](http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=earn_nt_net&lang=en)) are available on a yearly basis therefore, it was making sence to display a multi-line chart to express the evolution / trend of the tax / net earning from year to year.
 For an individual year, the pie chart on the top show percentage in a nice way so the reader can immediatly see the ratio of tax vs. net earnings.
+Historical data are presented with line chart because like most time-series data, the best way to represent the data is nearly always going to be a line chart.  Using a line chart we can quickly make some observations.  Is there spike for some countries ? etc.  Next, as we are only concern by two categories (tax and net earnings), using a stacked bar graph would be too much color on the chart.  The key message is to show the ratio and the differences amongs countries.
+
 When the user mouve over a dot of the line graph, the pie chart display the corresponding ratio of the selected year.  
 The choice has been made to **NOT** show the y axis to avoid an overload of information on the screen.  The user interested by a specific value of the line graph can get it when a circle is selected.
 User can choose a country by selecting an item in the combo box where a callback event is triggered to the server to retreive the needed data and refresh the charts.
@@ -130,3 +132,4 @@ Finally, the feedback received for the project were very useful and clearly this
 * [Eurostat - Net earnings and tax rates (metadata)](http://ec.europa.eu/eurostat/cache/metadata/en/earn_net_esms.htm)
 * [programming - how to use d3.json](https://gist.github.com/mbostock/3750941)
 * [programming - context and d3.json](http://stackoverflow.com/questions/30780654/how-to-properly-control-the-context-when-using-d3-json-event-handler/30780795?noredirect=1#comment49612132_30780795)
+* [Article - Displaying time-series data: Stacked bars, area charts or lines…you decide!](http://vizwiz.blogspot.be/2012/08/displaying-time-series-data-stacked.html)
