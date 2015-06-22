@@ -5,13 +5,20 @@
             // Production
             //this.DATAURL = 'https://radiant-basin-3159.herokuapp.com/api/v1/eurostat/basic/country/';
             // Development
-            this.DATAURL = 'http://localhost:3030/api/v1/eurostat/basic/country/';
+            this.DATAURL_per_country = 'http://localhost:3030/api/v1/eurostat/basic/country/';
+            this.DATAURL_all_countries = 'http://localhost:3030/api/v1/eurostat/basic/countries/'
             this.DURATION = 1500;
             this.DELAY    = 500;
-
-            this.data = []
+            // where we store the data from the middleware
+            this.data = [];            
+            this.COUNTRY = {
+                code: "BE",
+                description: "Belgium"
+            }
+            // draw the bar chart
+            this.drawBarChart('barChart', this.data.barChart);
             // bind all events
-            this.bindEvents();            
+            this.change(); 
         },
 
         // manipulate the data for the pie chart, calculate percentages
@@ -34,7 +41,7 @@
         },
 
         // build the donuts chart
-        drawPieChart: function( elementId, date ) {
+        drawPieChart: function( elementId, date ) {            
 
             year = date.getFullYear()
             document.getElementById("title").innerHTML = year;
@@ -47,7 +54,11 @@
             container   = d3.select( containerEl ),
             svg         = container.select( 'svg' )
                                   .attr( 'width', width )
-                                  .attr( 'height', height + 30 );        
+                                  .attr( 'height', height + 30 ); 
+            // FIX: There is a small problem in the pic chart. 
+            // Sometimes, it overlays the number making it hard to read 
+            svg.selectAll('g').remove();
+
             var pie = svg.append( 'g' )
                 .attr(
                     'transform',
@@ -65,7 +76,7 @@
                 .outerRadius( radius - 20)
                 .innerRadius( 0 );
 
-            // remove data not being used
+            // remove data not being used            
             pie.datum(data).selectAll("path")
                 .data(pieData).exit().remove();
             svg.selectAll('text').remove();
@@ -198,6 +209,128 @@
                             )
                             .html( data.description );
             }
+        },
+
+        // build the stack bar
+        drawBarChart: function( elementId, data ) {
+            var self = this;
+            d3.json(self.DATAURL_all_countries, function(error, data) {
+                if (error) throw error;
+
+                self.parseBarData(data);
+                var containerEl = document.getElementById( elementId );
+
+                var width       = containerEl.clientWidth;
+                var height      = width * 0.4;
+                var margin      = {
+                    top    : 10,
+                    right  : 10,
+                    left   : 40,
+                    bottom : 100 
+                };
+
+                var detailWidth  = 98,
+                detailHeight = 55,
+                detailMargin = 10;
+
+                var x = d3.scale.ordinal()
+                    .rangeRoundBands([0, width - detailWidth], .1);
+
+                var y = d3.scale.linear()
+                    .rangeRound([height, 0]);
+
+                var xAxis = d3.svg.axis()
+                    .scale(x)
+                    .orient("bottom")                    
+
+                var yAxis = d3.svg.axis()
+                    .scale(y)
+                    .orient("left")
+                    .tickFormat(d3.format("%"));
+
+                var yAxisTicks = d3.svg.axis().scale( y )
+                  .tickSize( width - detailWidth )
+                  .tickFormat( '' )
+                  .orient( 'right' );
+
+                var container   = d3.select( containerEl );
+
+                svg = container.select( 'svg' )
+                        .attr("width", width)
+                        .attr("height", height + margin.top + margin.bottom)
+                            .append("g")
+                        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+                x.domain( self.data.barChart.map(function(d) {return d.country}) )
+
+                var max = d3.max(self.data.barChart, function(d) {
+                    return d3.max([d.data.TAX]);
+                })
+
+                y.domain([0, max]);
+
+                svg.append("g")
+                  .attr("class", "x axis")
+                  .attr("transform", "translate(0," + height + ")")
+                  .call(xAxis)
+                  .selectAll("text")  
+                        .style("text-anchor", "end")
+                        .attr("dx", "-.8em")
+                        .attr("dy", ".15em")
+                        .attr("transform", function(d) {
+                            return "rotate(-65)" 
+                        });
+
+                svg.append( 'g' )
+                    .attr( 'class', 'lineChart--yAxisTicks' )
+                    .call( yAxisTicks );
+
+                svg.append("g")
+                   .attr("class", "y axis")
+                   .call(yAxis)
+                .append("text")
+                   .attr("transform", "rotate(-90)")
+                   .attr("y", 0)
+                   .attr("dy", ".71em")                  
+                   .style("text-anchor", "end")
+                   .text("Tax Rate");                  
+
+                var bar = svg.selectAll(".bar")
+                    .data(self.data.barChart) 
+                    .enter().append("g")
+                        .attr("class", "g")
+                        .attr("transform", function(d) { return "translate(" + x(d.country) + ",0)"; });
+                    
+                bar.append("rect")                  
+                    .attr("y", function(d) { return y(d.data.TAX); })
+                    .on("click", function(d) {
+                        d3.selectAll('rect')
+                            .attr("fill", "#ccc")
+                        d3.select(this)
+                            .attr("fill", "#804115")
+                        self.COUNTRY = {
+                            'code': d.country_code,
+                            'description': d.country
+                        }
+                        self.change();
+                    })
+                    .attr("width", x.rangeBand())
+                    .transition()
+                    .delay(function (d, i) { return i*100; })
+                    .attr("height", function(d) { return height - y(d.data.TAX); })
+                    .attr("fill", "#ccc")                    
+
+       
+
+                // TODO animations
+                /*
+                bar.transition()
+                    .duration(300)
+                    .ease("quad")
+                        .attr("width", 0)
+                        .remove()
+                */
+            })
         },
         
         // build the multi-line chart
@@ -446,16 +579,8 @@
             }
         },
 
-        // build the normilized chart : NA
-        drawNormalizedStackedBarChart: function( elementId, data) {
-            var self = this;
-
-            // TODO: draw the chart !!!!
-
-        },
-
-        // parse the data from the API
-        parseData: function(json) {
+        // parse the data from the API for the line / pie charts
+        parsePieLineData: function(json) {
             var self = this;
             // reset the data
             this.data = {
@@ -488,46 +613,79 @@
                 }
             })
             return self.data;
-        },        
+        },    
+
+        parseBarData: function(json) {
+            var self = this;
+            // reset the container
+            this.data.barChart = []
+            json.map(function(d) {  
+                var estruct = d.estruct;
+                for (var idx in d) {
+                    if (['NET', 'TAX'].indexOf(estruct.code) >= 0) {
+                        // only append non existing country
+                        position = self.data.barChart.map(function(e) { return e.country_code; }).indexOf(d.country.code);
+                        if (!~position) {
+                            var description = d.country.description;
+                            // Germany is using a long description, re-phrase it..
+                            if (d.country.code === 'DE') {
+                                description = 'Germany';
+                            }
+                            self.data.barChart.push({
+                                'country'       : description,
+                                'country_code'  : d.country.code,
+                                'data'          : {
+                                    'TAX'       : 0,
+                                }
+                            });   
+                            position = self.data.barChart.length - 1;                       
+                        }
+                        if (estruct.code === 'NET') {
+                            self.data.barChart[position].data['NET'] =+ d.measure[0].data
+                        } else {
+                            self.data.barChart[position].data['TAX'] =+ d.measure[0].data
+                        } 
+                    }
+                }                
+            })            
+            for (var idx in self.data.barChart) {
+                // apply the mean on the NET / TAX features
+                self.data.barChart[position].data['NET'] = self.data.barChart[position].data['NET'] / (2014 - 2000)
+                self.data.barChart[position].data['TAX'] = self.data.barChart[position].data['TAX'] / (2014 - 2000)
+                // next, convert to pct
+                var net = self.data.barChart[idx].data['NET'];
+                var tax = self.data.barChart[idx].data['TAX'];
+                var total = net + tax;
+                self.data.barChart[idx].data['NET'] = net / total
+                self.data.barChart[idx].data['TAX'] = tax / total
+            }
+        },    
 
         // render the charts on the page
         render: function(jsondata, country) {
-            var self = this;
+            var self = this;            
 
             document.getElementById("pie-title").innerHTML = country + " Average Earnings (Single person without children)";
             document.getElementById("line-title").innerHTML = country + " Annual Average Earnings";
 
             // parse the json data coming from the middleware
-            this.parseData(jsondata);
+            this.parsePieLineData(jsondata);
             
             // draw the line chart
             this.drawLineChart('lineChart', this.data.lineChart);
+
             // draw the pie chart
             date = new Date(2014, 0);
-            this.drawPieChart('pieChart', date);                
+            this.drawPieChart('pieChart', date);                            
         },
 
-        // bind events (json loading, combo selection ...)
-        bindEvents: function() {
+        // handle data change and callback to the middleware
+        change: function() {
             var self = this;
-            var dropdown = d3.select("#countrySelector")
-            
-            if (dropdown.empty() == false) {
-                var change = function() {
-                    var source = dropdown.node().options[dropdown.node().selectedIndex].value;
-                    var label = dropdown.node().options[dropdown.node().selectedIndex].label;
-                    d3.json(self.DATAURL + source)
-                        .on("load", function(data) {self.render(data, label);})
-                        .on("error", function(error) { console.log("failure!", error); })
-                        .get();
-                   
-                }
-                dropdown.on("change", change);
-                change()
-            } else {
-                // TODO: work in progress, implement normilizedChart as per feedback
-                this.drawNormalizedStackedBarChart('normilizedChart', this.data.drawNormalizedStackedBarChart);
-            }            
+            d3.json(self.DATAURL_per_country + self.COUNTRY.code)
+                .on("load", function(data) {self.render(data, self.COUNTRY.description);})
+                .on("error", function(error) { console.log("failure!", error); })
+                .get();
         }
     }
 

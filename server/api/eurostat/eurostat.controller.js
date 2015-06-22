@@ -28,14 +28,31 @@ exports.getByCountry = function(req, res) {
     });
 };
 
-exports.getNETforA1_50_all = function(req, res) {
+exports.getNETforA1_50_country = function(req, res) {
     Eurostat.find({
         'ecase.code': "A1_100", // "Single person without children, 100% of AW"
         'currency.code': "EUR",
-        'country.code': req.params.id
+        'country.code': req.params.id,
+        'estruct.code': {$nin: ['GRS', 'SOC', 'FAM', 'TOTAL']}
     })
     .sort({'measure.year' :  -1})
     .select('measure estruct')
+    .exec(function (err, data) {
+        if(err) { return handleError(res, err); }
+        if(!data) { return res.status(404).end(); }
+        return res.json(data).end();
+    });
+};
+
+exports.getNETforA1_50_all_countries = function(req, res) {
+    Eurostat.find({
+        'ecase.code': "A1_100", // "Single person without children, 100% of AW"
+        'currency.code': "EUR",
+        'country.code': {$nin: ['EA17', 'EA18', 'EA19', 'EU15', 'EU25', 'EU27','EU28']},
+        'estruct.code': {$nin: ['GRS', 'SOC', 'FAM', 'TOTAL']}
+    })
+    .select('measure')
+    .select('estruct country')
     .exec(function (err, data) {
         if(err) { return handleError(res, err); }
         if(!data) { return res.status(404).end(); }
