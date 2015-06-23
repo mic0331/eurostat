@@ -2,9 +2,11 @@
 ## Summary
 ### Which country has the highest tax rate?
 In which countries do high earners pay the most tax? And where do average earners pay the most?
-This **[visualization](https://radiant-basin-3159.herokuapp.com/)** show the differences between countries for the net earnings and taxes (without including the social security contributions - national insurance).
+This **[visualization](http://radiant-basin-3159.herokuapp.com/)** show the differences between countries for the net earnings and taxes (without including the social security contributions - national insurance).
 
-At the top end of the distribution we have Belgium where single people pay 33% of gross earnings in income tax, followed by Germany with 24%.
+At the top end of the distribution we have Danemark where single people pay 37% of gross earnings in income tax, followed by Belgium with 33%.
+
+At the bottom we have Greece with only 11% of taxes.  This low tax rate probably explain current greek dept crisis...
 
 In a lot of the European countries tax rates are high but the provision of benefits by the state tends to be very generous compared to countries in other parts of the world.
 
@@ -13,7 +15,7 @@ In a lot of the European countries tax rates are high but the provision of benef
 The data (coming from [Eurostat](http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=earn_nt_net&lang=en)) are available on a yearly basis therefore, it was making sence to display a multi-line chart to express the evolution / trend of the tax / net earning from year to year.
 For an individual year, the pie chart on the top show percentage in a nice way so the reader can immediatly see the ratio of tax vs. net earnings.
 
-Historical data are presented with line chart because like most time-series data, the best way to represent the data is nearly always going to be a line chart.  Using a line chart we can quickly make some observations.  Is there spike for some countries ? etc.  Next, as we are only concern by two categories (tax and net earnings), using a stacked bar (or normilized stacked bar) graph would be too much color on the chart.  The key message is to show the ratio and the differences amongs countries.  
+Historical data are presented with line chart because like most time-series data, the best way to represent the data is nearly always going to be a line chart.  Using a line chart we can quickly make some observations.  Is there spike for some countries ? etc. (see Danemark in 2012)  Next, as we are only concern by two categories (tax and net earnings), using a stacked bar (or normilized stacked bar) graph would be too much color on the chart.  The key message is to show the ratio and the differences amongs countries.  
 
 When the user mouve over a dot of the line graph, the pie chart display the corresponding ratio of the selected year.  
 The choice has been made to **NOT** show the y axis to avoid an overload of information on the screen.  The user interested by a specific value of the line graph can get it when a circle is selected.
@@ -51,13 +53,23 @@ During the survey, several actions has been taken day after day based on recomme
 4. typos were fixed.
 5. labels and titles were carefully re-writter to clearly explain the percentage and charts.
 
-In order to further improove the project, one suggestion was made to use a [Normalized Stacked Bar Chart](http://bl.ocks.org/mbostock/3886394).  This is something that will be considered later to further explain the differences between countries.
+In order to further improove the project, one suggestion was made to use a [Normalized Stacked Bar Chart](http://bl.ocks.org/mbostock/3886394).  Instead a bar chart has been created at the top of the screen to show the average tax per country so the reader can easily compare countries and see the inequalities.
 
 Finally, several people mention that social security contribution, familly allowances, etc. were key information to show in this graph.  This is also a point of concern that will be investigate later to irmpoove the chart.
 
+Last but not least, in the initial version of the project, a drop down was used to select countries.  Now with the addition of the bar chart, the reader can select an individual country by simply selecting the bar of that country.  Also, the pie chart has been put below the line chart because it is most appropriate due to the nature of the pie.  The pie is a focus of a dedicated year.  It make more sence for the reader to 1/ select the country, 2/ select the year of interest than 3/ visualize the ratio of tax/earnings.
+
 The final UI of the project is much better.  This has been confirmed by the feedback that were much better at the end of the survey campaign.
 
+UI before the addition of the bar chart:
+
 ![](./public/pictures/UI_v3.png)
+
+UI after the addition of the bar chart:
+
+![](./public/pictures/UI_v4.png)
+
+Notice that the y-axis of the bar chart is using a percentage but do not show an axis from 0 to 100%.  This choice has been made to clearly emphasis the differences amongst countries.
 
 ## Technological choices
 
@@ -127,6 +139,8 @@ Finding an interesting data set and a story it tells can be the most difficult p
 Data visualization is the end artifact, but it involves multiple steps – finding reliable data, getting the data in the right format, cleaning it up (an often underestimated step in the amount of time it takes!) and then finding the story you will eventually visualize.
 
 Finally, the feedback received for the project were very useful and clearly this part of the project was very interesting especially considering the various point of view from prople with different background.
+
+I really enjoyed this project, it gave me the opportunity to show my background of devlopper applied to data analysis/discovery field.
 
 ## Resources
 * [Eurostat - Net earnings and tax rates (earn_net)](http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=earn_nt_net&lang=en)

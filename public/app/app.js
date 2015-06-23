@@ -3,11 +3,11 @@
         // Initialize the constants and bind events.
         init: function() {
             // Production
-            this.DATAURL_per_country = 'http://radiant-basin-3159.herokuapp.com/api/v1/eurostat/basic/country/';
-            this.DATAURL_all_countries = 'http://radiant-basin-3159.herokuapp.com/api/v1/eurostat/basic/countries/';
+            //this.DATAURL_per_country = 'http://radiant-basin-3159.herokuapp.com/api/v1/eurostat/basic/country/';
+            //this.DATAURL_all_countries = 'http://radiant-basin-3159.herokuapp.com/api/v1/eurostat/basic/countries/';
             // Development
-            //this.DATAURL_per_country = 'http://localhost:3030/api/v1/eurostat/basic/country/';
-            //this.DATAURL_all_countries = 'http://localhost:3030/api/v1/eurostat/basic/countries/';
+            this.DATAURL_per_country = 'http://localhost:3030/api/v1/eurostat/basic/country/';
+            this.DATAURL_all_countries = 'http://localhost:3030/api/v1/eurostat/basic/countries/';
             this.DURATION = 1500;
             this.DELAY    = 500;
             // where we store the data from the middleware
