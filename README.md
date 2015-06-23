@@ -42,7 +42,7 @@ The following questions where asked :
 
 ![](./public/pictures/survey_monkey.png)
 
-The survey (conduted for about a week between the 11th till the 16th of June) has been posted on various channel (udacity forum, reddit, twitter, goodle +) in order to maximized the number of feedback.
+The survey (conduted for about a week between the 11th till the 16th of June) has been posted on various channel (udacity forum, reddit, twitter, google+) in order to maximized the number of feedback.
 Overall, about 10 people reply and share some interesting comments about the quality and the possible improovement of the charts ([results of the survey](feedback.md))
 
 During the survey, several actions has been taken day after day based on recommendations made by the community.
