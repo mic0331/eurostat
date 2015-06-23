@@ -50,8 +50,8 @@ During the survey, several actions has been taken day after day based on recomme
 1. A swap was made in the labels of the pie chart, this has been fixed immediatly.
 2. The coloring has been change to use a red / green combination that was working well for this type of visualization.
 3. A y-axis has been added for the multiple-line chart.
-4. typos were fixed.
-5. labels and titles were carefully re-writter to clearly explain the percentage and charts.
+4. Typos were fixed.
+5. Labels and titles were carefully re-writter to clearly explain the percentage and charts.
 
 In order to further improove the project, one suggestion was made to use a [Normalized Stacked Bar Chart](http://bl.ocks.org/mbostock/3886394).  Instead a bar chart has been created at the top of the screen to show the average tax per country so the reader can easily compare countries and see the inequalities.
 
