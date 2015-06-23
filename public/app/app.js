@@ -219,44 +219,41 @@
                 if (error) throw error;
 
                 self.parseBarData(data);
-                var containerEl = document.getElementById( elementId );
+                var containerEl = document.getElementById( elementId ),
+                    width       = containerEl.clientWidth;
+                    height      = width * 0.4;
+                    margin      = {
+                        top    : 10,
+                        right  : 10,
+                        left   : 40,
+                        bottom : 100 
+                    },
+                    detailWidth  = 98,
+                    detailHeight = 55,
+                    detailMargin = 10;
+                    x   = d3.scale.ordinal()
+                            .rangeRoundBands([0, width - detailWidth], .1),
 
-                var width       = containerEl.clientWidth;
-                var height      = width * 0.4;
-                var margin      = {
-                    top    : 10,
-                    right  : 10,
-                    left   : 40,
-                    bottom : 100 
-                };
+                    y   = d3.scale.linear()
+                            .rangeRound([height, 0]),
 
-                var detailWidth  = 98,
-                detailHeight = 55,
-                detailMargin = 10;
+                    xAxis = d3.svg.axis()
+                        .scale(x)
+                        .orient("bottom"),                    
 
-                var x = d3.scale.ordinal()
-                    .rangeRoundBands([0, width - detailWidth], .1);
+                    yAxis = d3.svg.axis()
+                        .scale(y)
+                        .orient("left")
+                        .tickFormat(d3.format("%")),
 
-                var y = d3.scale.linear()
-                    .rangeRound([height, 0]);
+                    yAxisTicks = d3.svg.axis().scale( y )
+                        .tickSize( width - detailWidth )
+                        .tickFormat( '' )
+                        .orient( 'right' ),
 
-                var xAxis = d3.svg.axis()
-                    .scale(x)
-                    .orient("bottom")                    
+                    container = d3.select( containerEl ),
 
-                var yAxis = d3.svg.axis()
-                    .scale(y)
-                    .orient("left")
-                    .tickFormat(d3.format("%"));
-
-                var yAxisTicks = d3.svg.axis().scale( y )
-                  .tickSize( width - detailWidth )
-                  .tickFormat( '' )
-                  .orient( 'right' );
-
-                var container   = d3.select( containerEl );
-
-                svg = container.select( 'svg' )
+                    svg = container.select( 'svg' )
                         .attr("width", width)
                         .attr("height", height + margin.top + margin.bottom)
                             .append("g")
@@ -300,7 +297,7 @@
                     .data(self.data.barChart) 
                     .enter().append("g")
                         .attr("class", "g")
-                        .attr("transform", function(d) { return "translate(" + x(d.country) + ",0)"; });
+                        .attr("transform", function(d) { return "translate(" + x(d.country) + ",0)"; })
                     
                 bar.append("rect")                  
                     .attr("y", function(d) { return y(d.data.TAX); })
@@ -319,18 +316,9 @@
                     .transition()
                     .delay(function (d, i) { return i*100; })
                     .attr("height", function(d) { return height - y(d.data.TAX); })
-                    .attr("fill", "#ccc")                    
-
-       
-
-                // TODO animations
-                /*
-                bar.transition()
-                    .duration(300)
-                    .ease("quad")
-                        .attr("width", 0)
-                        .remove()
-                */
+                    .attr("fill", function(d, i){
+                        return (d.country_code === 'BE') ? "#804115" : "#ccc";
+                    });                   
             })
         },
         
@@ -406,8 +394,8 @@
                 circleContainer;
 
             // remove data not being used
-            svg.selectAll('path').remove();
             svg.selectAll('circle').remove();
+            svg.selectAll('path').remove();            
             svg.selectAll('g').remove();
 
             // Compute the minimum and maximum date, and the maximum value.
@@ -513,12 +501,11 @@
                     } )
                     .transition()
                     .delay( self.DURATION / 10 * index )
-                    .attr( 'r', 6 );
+                    .attr( 'r', 6 ) 
             }
 
             function drawCircles( data ) {
                 circleContainer = svg.append( 'g' );
-
                 data.forEach( function( datum, index ) {
                     drawCircle( datum, index );
                 } );
