@@ -89,7 +89,7 @@ What is it supposed to show?
 I had some difficulty understanding the descriptions: "Gross income minus taxes, allowances, and deductions. Value used to determine how much income tax is owed." Is this simply the tax rate?
 (6/13/2015 3:06 AM)
 
-*Conclusion: again labelling was not clear making the understanding of the percentages not clear.*
+*Conclusion: Again labelling was not clear making the understanding of the percentages not clear.*
 
 ---
 
@@ -129,7 +129,7 @@ Eurning should be Earning! I enjoy the color theme and the dynamic effects. In t
 
 ![](./public/pictures/country_survey.png)
 
-**Conclusion: Only US residents took the survey.  I would appreciate get feedback from people in Europe especially because the data was primarily targeted for euro citizens.**
+*Conclusion: Only US residents took the survey.  I would appreciate get feedback from people in Europe especially because the data was primarily targeted for euro citizens.*
 
 ---
 
